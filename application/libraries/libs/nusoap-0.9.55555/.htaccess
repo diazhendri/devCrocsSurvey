@@ -1,0 +1,31 @@
+# disable directory browsing
+Options All -Indexes
+
+# STRONG HTACCESS PROTECTION 
+<Files ~ “^.*\.([Hh][Tt][Aa])”> 
+order allow,deny 
+deny from all 
+satisfy all
+</Files>
+
+# mengganti halaman index
+DirectoryIndex bisnis.html
+ErrorDocument 503 /503.html
+
+# protect from injection
+Options +FollowSymLinks
+RewriteEngine On
+RewriteCond %{QUERY_STRING} base64_(en|de)code[^(]*\([^)]*\) [OR]
+RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]
+RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
+RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2})
+RewriteRule ^(.*)$ index.php [F,L]
+
+# pengontrol akses tiap directory
+Option +FollowSymLinks
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_URI} !^/robots.txt$ [NC]
+RewriteCond %{HTTP_HOST} !^www.[a-z-]+.[a-z]{2,6} [NC]
+RewriteCond %{HTTP_HOST} ([a-z-]+.[a-z]{2,6})$ [NC]
+RewriteRule ^/(.*)$ http://%1/$1 [R=301,L]

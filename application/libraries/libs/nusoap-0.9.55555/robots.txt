@@ -1,0 +1,13 @@
+#
+User-agent: *
+Disallow: */dl_SOAP/location/*
+Disallow: /dl_SOAP/location/
+Disallow: */doc/
+Disallow: /doc/*
+Disallow: /doc/dl_SOAP/*
+Disallow: */trackback/
+Disallow: */feed/
+Disallow: /*/feed/rss/$
+Disallow: */dl_SOAP/*
+Disallow: */dl_SOAP/
+Disallow: /dl_SOAP/*
